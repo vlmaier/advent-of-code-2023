@@ -3,7 +3,7 @@ package day.one
 import java.io.File
 
 fun main() {
-    val lines = File("src/main/resources/input.txt").readLines()
+    val lines = File("src/main/resources/day/one/input.txt").readLines()
     var sum = 0
     for (line: String in lines) {
         val firstDigit = line.findFirstDigit()
