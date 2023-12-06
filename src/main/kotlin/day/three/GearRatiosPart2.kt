@@ -2,14 +2,10 @@ package day.three
 
 import java.io.File
 
-private const val DOT = '.'
-private const val GEAR = '*'
-
 fun main() {
     val lines = File("src/main/resources/day/three/input.txt").readLines()
     val inputMap = lines.map { row -> row.toCharArray() }.toTypedArray()
     val numbers = mutableListOf<Pair<Int, List<String>>>()
-
     inputMap.forEachIndexed { rowIndex, row ->
         var number = 0
         row.forEachIndexed { columnIndex, value ->
@@ -19,10 +15,12 @@ fun main() {
                 val nextColumn = columnIndex + 1
                 if (nextColumn == row.size || !row[nextColumn].isDigit()) {
                     val numberLength = "$number".length
-                    /* save all neighbors for every found numbers
-                     * '.' (dot) is used a default neighbor in case you are out of bounds
+                    /**
+                     * save all neighbors for every found number
+                     * '.' (dot) is used as a default neighbor in case you are out of bounds
                      * if you find a '*' (gear) also save the location [row][column],
                      * so you can validate later which numbers are sharing the same gear
+                     * and so finding your gear ratios
                     */
                     val listOfNeighbors = mutableListOf<String>()
                     // neighbor right
@@ -61,10 +59,9 @@ fun main() {
         print("$numbers ")
         println()
     }
-
     val gearMap = mutableMapOf<String, MutableList<Int>>()
     numbers.forEach { (number, neighbors) ->
-        val gearNeighbors = neighbors.filter { it.startsWith("*") }
+        val gearNeighbors = neighbors.filter { it.startsWith(GEAR.toString()) }
         gearNeighbors.forEach {
             val gearNumbers = gearMap.getOrDefault(it, mutableListOf())
             gearNumbers.add(number)
@@ -78,3 +75,6 @@ fun main() {
     println(gearMap)
     println(gearRatio)
 }
+
+private const val DOT = '.'
+private const val GEAR = '*'

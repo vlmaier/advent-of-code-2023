@@ -7,10 +7,7 @@ fun main() {
     var sum = 0
     for (line in lines) {
         val game = Game(line)
-        // part 1
-        // sum += if (game.isValidGame()) game.getId() else 0
-        // part 2
-        sum += game.getPower()
+        sum += if (game.isValidGame()) game.getId() else 0
     }
     println(sum)
 }
@@ -22,6 +19,11 @@ data class Game(val input: String) {
         val matchResult = regex.find(input)
         return matchResult?.groupValues?.get(1)?.toInt() ?: 0
     }
+
+    fun isValidGame(): Boolean = listOf("red" to 12, "green" to 13, "blue" to 14)
+        .all { (color, maxCount) -> getMaxCounts().getOrDefault(color, 0) <= maxCount }
+
+    fun getPower(): Int = getMaxCounts().values.reduce(Int::times)
 
     private fun getSets(): List<String> {
         val regex = Regex("""Game \d+: (.+)$""")
@@ -40,9 +42,4 @@ data class Game(val input: String) {
         }
         return colorCounts
     }
-
-    fun isValidGame(): Boolean = listOf("red" to 12, "green" to 13, "blue" to 14)
-        .all { (color, maxCount) -> getMaxCounts().getOrDefault(color, 0) <= maxCount }
-
-    fun getPower(): Int = getMaxCounts().values.reduce(Int::times)
 }

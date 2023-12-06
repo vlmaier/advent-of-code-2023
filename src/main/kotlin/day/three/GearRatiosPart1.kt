@@ -2,15 +2,11 @@ package day.three
 
 import java.io.File
 
-private const val DOT = '.'
-
 fun main() {
     val lines = File("src/main/resources/day/three/input.txt").readLines()
-
-    val matrix = lines.map { row -> row.toCharArray() }.toTypedArray()
+    val inputMap = lines.map { row -> row.toCharArray() }.toTypedArray()
     val numbers = mutableListOf<Pair<Int, List<Char>>>()
-
-    matrix.forEachIndexed { rowIndex, row ->
+    inputMap.forEachIndexed { rowIndex, row ->
         var number = 0
         row.forEachIndexed { columnIndex, value ->
             print("$value")
@@ -30,14 +26,14 @@ fun main() {
                         // neighbors top
                         for (k in columnIndex - numberLength..nextColumn) {
                             val previousRow = rowIndex - 1
-                            listOfNeighbors.add(matrix[previousRow].getOrNull(k) ?: DOT)
+                            listOfNeighbors.add(inputMap[previousRow].getOrNull(k) ?: DOT)
                         }
                     }
-                    if (rowIndex != matrix.size - 1) {
+                    if (rowIndex != inputMap.size - 1) {
                         // neighbors bottom
                         for (k in columnIndex - numberLength..nextColumn) {
                             val nextRow = rowIndex + 1
-                            listOfNeighbors.add(matrix[nextRow].getOrNull(k) ?: DOT)
+                            listOfNeighbors.add(inputMap[nextRow].getOrNull(k) ?: DOT)
                         }
                     }
                     numbers.add(number to listOfNeighbors)
@@ -48,7 +44,6 @@ fun main() {
         print("$numbers ")
         println()
     }
-
     var sum = 0
     numbers.forEach { (number, neighbors) ->
         if (neighbors.any { !it.isDigit() && it != DOT }) {
@@ -57,3 +52,5 @@ fun main() {
     }
     println(sum)
 }
+
+private const val DOT = '.'
