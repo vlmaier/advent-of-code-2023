@@ -13,7 +13,7 @@ fun main() {
     matrix.forEachIndexed { rowIndex, row ->
         var number = 0
         row.forEachIndexed { columnIndex, value ->
-            // print("$value")
+            print("$value")
             if (value.isDigit()) {
                 number = "$number$value".toInt()
                 val nextColumn = columnIndex + 1
@@ -45,8 +45,8 @@ fun main() {
                 }
             }
         }
-        // print("$numbers ")
-        // println()
+        print("$numbers ")
+        println()
     }
 
     var sum = 0
