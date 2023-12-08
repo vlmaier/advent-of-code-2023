@@ -1,11 +1,13 @@
-package day.four
-
 import java.io.File
 
 fun main() {
-    val lines = File("src/main/resources/day/four/input.txt").readLines()
+    solveDay4Part1().let { println("Part 1: $it") }
+}
+
+fun solveDay4Part1(): Int {
+    val input = readInput("day04")
     var points = 0
-    for (line in lines) {
+    for (line in input) {
         val card = Card(line)
         val countWinningNumbers = card.countWinningNumbers()
         var pointsPerCard = if (countWinningNumbers > 0) 1 else 0
@@ -14,7 +16,7 @@ fun main() {
         }
         points += pointsPerCard
     }
-    println(points)
+    return points
 }
 
 data class Card(val input: String) {

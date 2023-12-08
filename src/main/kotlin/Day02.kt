@@ -1,15 +1,27 @@
-package day.two
-
-import java.io.File
 
 fun main() {
-    val lines = File("src/main/resources/day/two/input.txt").readLines()
+    solveDay2Part1().let { println("Part 1: $it") }
+    solveDay2Part2().let { println("Part 2: $it") }
+}
+
+fun solveDay2Part1(): Int {
+    val input = readInput("day02")
     var sum = 0
-    for (line in lines) {
+    for (line in input) {
         val game = Game(line)
         sum += if (game.isValidGame()) game.getId() else 0
     }
-    println(sum)
+    return sum
+}
+
+fun solveDay2Part2(): Int {
+    val input = readInput("day02")
+    var sum = 0
+    for (line in input) {
+        val game = Game(line)
+        sum += game.getPower()
+    }
+    return sum
 }
 
 data class Game(val input: String) {

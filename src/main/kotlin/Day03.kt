@@ -1,15 +1,68 @@
-package day.three
-
-import java.io.File
 
 fun main() {
-    val lines = File("src/main/resources/day/three/input.txt").readLines()
-    val inputMap = lines.map { row -> row.toCharArray() }.toTypedArray()
+    solveDay3Part1().let { println("Part 1: $it") }
+    solveDay3Part2().let { println("Part 2: $it") }
+}
+
+fun solveDay3Part1(): Int {
+    val input = readInput("day03")
+    val inputMap = input.map { row -> row.toCharArray() }.toTypedArray()
+    val numbers = mutableListOf<Pair<Int, List<Char>>>()
+    inputMap.forEachIndexed { rowIndex, row ->
+        var number = 0
+        row.forEachIndexed { columnIndex, value ->
+            // print("$value")
+            if (value.isDigit()) {
+                number = "$number$value".toInt()
+                val nextColumn = columnIndex + 1
+                if (nextColumn == row.size || !row[nextColumn].isDigit()) {
+                    val numberLength = "$number".length
+                    val listOfNeighbors = mutableListOf<Char>()
+                    // neighbor right
+                    listOfNeighbors.add(if (nextColumn == row.size) DOT else row[nextColumn])
+                    // neighbor left
+                    listOfNeighbors.add(
+                        if (columnIndex - 1 == -1) DOT else row.getOrNull(columnIndex - numberLength) ?: DOT
+                    )
+                    if (rowIndex != 0) {
+                        // neighbors top
+                        for (k in columnIndex - numberLength..nextColumn) {
+                            val previousRow = rowIndex - 1
+                            listOfNeighbors.add(inputMap[previousRow].getOrNull(k) ?: DOT)
+                        }
+                    }
+                    if (rowIndex != inputMap.size - 1) {
+                        // neighbors bottom
+                        for (k in columnIndex - numberLength..nextColumn) {
+                            val nextRow = rowIndex + 1
+                            listOfNeighbors.add(inputMap[nextRow].getOrNull(k) ?: DOT)
+                        }
+                    }
+                    numbers.add(number to listOfNeighbors)
+                    number = 0
+                }
+            }
+        }
+        // print("$numbers ")
+        // println()
+    }
+    var sum = 0
+    numbers.forEach { (number, neighbors) ->
+        if (neighbors.any { !it.isDigit() && it != DOT }) {
+            sum += number
+        }
+    }
+    return sum
+}
+
+fun solveDay3Part2(): Int {
+    val input = readInput("day03")
+    val inputMap = input.map { row -> row.toCharArray() }.toTypedArray()
     val numbers = mutableListOf<Pair<Int, List<String>>>()
     inputMap.forEachIndexed { rowIndex, row ->
         var number = 0
         row.forEachIndexed { columnIndex, value ->
-            print("$value")
+            // print("$value")
             if (value.isDigit()) {
                 number = "$number$value".toInt()
                 val nextColumn = columnIndex + 1
@@ -21,7 +74,7 @@ fun main() {
                      * if you find a '*' (gear) also save the location [row][column],
                      * so you can validate later which numbers are sharing the same gear
                      * and so finding your gear ratios
-                    */
+                     */
                     val listOfNeighbors = mutableListOf<String>()
                     // neighbor right
                     listOfNeighbors.add(
@@ -56,8 +109,8 @@ fun main() {
                 }
             }
         }
-        print("$numbers ")
-        println()
+        // print("$numbers ")
+        // println()
     }
     val gearMap = mutableMapOf<String, MutableList<Int>>()
     numbers.forEach { (number, neighbors) ->
@@ -72,8 +125,8 @@ fun main() {
     gearMap.filter { it.value.size == 2 }.values.forEach {
         gearRatio += it.reduce(Int::times)
     }
-    println(gearMap)
-    println(gearRatio)
+    // println(gearMap)
+    return gearRatio
 }
 
 private const val DOT = '.'

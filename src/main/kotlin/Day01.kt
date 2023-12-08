@@ -1,17 +1,21 @@
-package day.one
-
-import java.io.File
 
 fun main() {
-    val lines = File("src/main/resources/day/one/input.txt").readLines()
+    solveDay1().let { println("Part 1/2: $it") }
+}
+
+/**
+ * Solves both parts
+ */
+fun solveDay1(): Int {
+    val input = readInput("day01")
     var sum = 0
-    for (line: String in lines) {
+    for (line: String in input) {
         val firstDigit = line.findFirstDigit()
         val lastDigit = line.reversed().findFirstDigit()
         val combinedNumber = "$firstDigit$lastDigit".toIntOrNull()
         sum += combinedNumber ?: 0
     }
-    println(sum)
+    return sum
 }
 
 fun String.findFirstDigit(): Int {
