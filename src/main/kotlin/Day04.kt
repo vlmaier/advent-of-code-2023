@@ -1,4 +1,3 @@
-import java.io.File
 
 fun main() {
     solveDay4Part1().let { println("Part 1: $it") }
