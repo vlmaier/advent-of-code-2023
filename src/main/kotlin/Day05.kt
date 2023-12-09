@@ -8,13 +8,19 @@ fun main() {
 fun solveDay5Part1(): Long {
     val input = readInput("day05")
     val seeds = input
-        .first { it.startsWith("seeds:") }
+        .first { it.startsWith(SEEDS) }
         .substringAfter(":")
         .split(" ")
         .filter { it.isNotBlank() }
         .map(String::toLong)
+    val maps = getMaps(input)
+    val seedToLocation = convertSeedToLocation(seeds, maps)
+    return seedToLocation.min()
+}
+
+private fun getMaps(input: List<String>): MutableMap<String, List<List<Long>>> {
     val mapList = input
-        .dropWhile { !it.startsWith("seeds:") }
+        .dropWhile { !it.startsWith(SEEDS) }
         .drop(2)
     val maps = mutableMapOf<String, List<List<Long>>>()
     var i = 0
@@ -29,8 +35,7 @@ fun solveDay5Part1(): Long {
         maps[key] = value
         i += j + 1
     }
-    val seedToLocation = convertSeedToLocation(seeds, maps)
-    return seedToLocation.min()
+    return maps
 }
 
 private fun convertSeedToLocation(seeds: List<Long>, maps: Map<String, List<List<Long>>>): List<Long> {
@@ -47,20 +52,22 @@ private fun convertCategory(
 ): List<Long> {
     val result = mutableListOf<Long>()
     for (seed in source) {
-        var isConverted = false
+        var isMapped = false
         for (line in map) {
             val (destinationStart, sourceStart, length) = line
             if (seed in sourceStart..<sourceStart + length) {
-                val destValue = destinationStart + (seed - sourceStart)
-                result.add(destValue)
-                isConverted = true
+                val value = destinationStart + (seed - sourceStart)
+                result.add(value)
+                isMapped = true
                 break
             }
         }
-        if (!isConverted) {
+        if (!isMapped) {
             // if not mapped then 1:1 mapping
             result.add(seed)
         }
     }
     return result
 }
+
+private const val SEEDS = "seeds:"
