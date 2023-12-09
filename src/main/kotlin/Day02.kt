@@ -1,4 +1,6 @@
-
+/**
+ * --- Day 2: Cube Conundrum ---
+ */
 fun main() {
     solveDay2Part1().let { println("Part 1: $it") }
     solveDay2Part2().let { println("Part 2: $it") }

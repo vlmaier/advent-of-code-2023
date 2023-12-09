@@ -1,4 +1,6 @@
-
+/**
+ * --- Day 1: Trebuchet?! ---
+ */
 fun main() {
     solveDay1().let { println("Part 1/2: $it") }
 }

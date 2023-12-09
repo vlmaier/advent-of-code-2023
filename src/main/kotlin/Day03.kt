@@ -1,4 +1,6 @@
-
+/**
+ * --- Day 3: Gear Ratios ---
+ */
 fun main() {
     solveDay3Part1().let { println("Part 1: $it") }
     solveDay3Part2().let { println("Part 2: $it") }

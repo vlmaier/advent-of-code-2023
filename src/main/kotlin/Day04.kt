@@ -1,4 +1,6 @@
-
+/**
+ * --- Day 4: Scratchcards ---
+ */
 fun main() {
     solveDay4Part1().let { println("Part 1: $it") }
 }
