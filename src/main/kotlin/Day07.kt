@@ -1,5 +1,5 @@
 /**
- * --- Day 6: Wait For It ---
+ * --- Day 7: Camel Cards ---
  */
 fun main() {
     solveDay7Part1().let { println("Part 1: $it") }
