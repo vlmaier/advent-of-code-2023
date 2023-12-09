@@ -3,6 +3,7 @@
  */
 fun main() {
     solveDay5Part1().let { println("Part 1: $it") }
+    solveDay5Part2().let { println("Part 2: $it") }
 }
 
 fun solveDay5Part1(): Long {
@@ -13,6 +14,22 @@ fun solveDay5Part1(): Long {
         .split(" ")
         .filter { it.isNotBlank() }
         .map(String::toLong)
+    val maps = getMaps(input)
+    val seedToLocation = convertSeedToLocation(seeds, maps)
+    return seedToLocation.min()
+}
+
+fun solveDay5Part2(): Long {
+    val input = readInput("day05")
+    val seeds = input
+        .first { it.startsWith(SEEDS) }
+        .substringAfter(":")
+        .split(" ")
+        .filter { it.isNotBlank() }
+        .map(String::toLong)
+        .chunked(2)
+        // flatMap is causing OutOfMemoryError
+        .flatMap { (start, length) -> (start..<start + length).toList() }
     val maps = getMaps(input)
     val seedToLocation = convertSeedToLocation(seeds, maps)
     return seedToLocation.min()
