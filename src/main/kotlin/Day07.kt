@@ -3,36 +3,71 @@
  */
 fun main() {
     solveDay7Part1().let { println("Part 1: $it") }
-    // solveDay7Part2().let { println("Part 2: $it") }
 }
 
 fun solveDay7Part1(): Int {
-    val input = readInput("day07")
-    val hands = input.associate {
-        it.split(" ")[0] to it.split(" ")[1].toInt() to 0
+    val hands = readInput("day07").associate {
+        val (cards, bid) = it.split(" ")
+        // rank default: 0 (will be filled later)
+        Pair(cards, bid.toInt()) to 0
     }.toMutableMap()
-    findRank(hands)
-    return 0
+    return calculateWinnings(hands)
 }
 
-private fun findRank(hands: MutableMap<Pair<String, Int>, Int>) {
-    hands.keys.forEach {
-        findType(it.first)
+private fun calculateWinnings(hands: MutableMap<Pair<String, Int>, Int>): Int {
+    val ratedHands = hands.toList()
+        .sortedWith(
+            // sort by type of hand first
+            compareBy<Pair<Pair<String, Int>, Int>> { (hand, _) ->
+                findType(hand.first).strength
+            // sort by card rank second
+            }.thenByDescending { (hand, _) ->
+                hand.first.map { it.getCardRank() }.joinToString()
+            })
+    ratedHands.forEachIndexed { index, (hand, _) ->
+        hands[hand] = index + 1
+        // println("Hand: ${hand.first}, Bid: ${hand.second}, Rank: ${index + 1}, Type: ${findType(hand.first)}")
+    }
+    return hands.entries.sumOf { (pair, value) -> pair.second * value }
+}
+
+private fun findType(hand: String): Type {
+    val occurrences = countOverallEqualChars(hand).values
+    return when {
+        5 in occurrences -> Type.FIVE_OF_A_KIND
+        4 in occurrences -> Type.FOUR_OF_A_KIND
+        3 in occurrences && 2 in occurrences -> Type.FULL_HOUSE
+        3 in occurrences -> Type.THREE_OF_A_KIND
+        occurrences.count { it == 2 } == 2 -> Type.TWO_PAIR
+        2 in occurrences -> Type.ONE_PAIR
+        else -> Type.HIGH_CARD
     }
 }
 
-private fun findType(hand: String) {
-    countOverallEqualChars(hand).forEach { (char, count) ->
-        println("$hand: $char occurs $count times.")
-    }
+private fun countOverallEqualChars(input: String): Map<Char, Int> {
+    return input.groupBy { it }.mapValues { it.value.size }
 }
 
-fun countOverallEqualChars(input: String): Map<Char, Int> {
-    val charCounts = mutableMapOf<Char, Int>()
-    for (char in input) {
-        charCounts[char] = charCounts.getOrDefault(char, 0) + 1
+/**
+ * Custom mapping which allows alphanumeric sorting
+ */
+private fun Char.getCardRank(): Char {
+    return when (this) {
+        'A' -> 'A'
+        'K' -> 'B'
+        'Q' -> 'C'
+        'J' -> 'D'
+        'T' -> 'E'
+        '9' -> 'F'
+        '8' -> 'G'
+        '7' -> 'H'
+        '6' -> 'I'
+        '5' -> 'J'
+        '4' -> 'K'
+        '3' -> 'L'
+        '2' -> 'M'
+        else -> 'N'
     }
-    return charCounts
 }
 
 enum class Type(val strength: Int) {
