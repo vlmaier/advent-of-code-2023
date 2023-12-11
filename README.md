@@ -7,6 +7,10 @@ event with daily programming puzzles throughout the month of December. It's a gr
 skills, explore new programming languages, and join a global community of developers in the festive spirit of
 problem-solving.
 
+## Progress
+
+### `1** 2** 3** 4* 5* 6** 7*`
+
 ## Structure
 
 - Solution: Each day has its own solution file e.g., `Day01.kt`, `Day02.kt` it (usually) contains solution for part 1 and 2 of each challenge.
