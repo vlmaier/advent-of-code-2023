@@ -9,16 +9,16 @@ problem-solving.
 
 ## Progress
 
-- [Day 01](docs/Day01.md) `**`
-- [Day 02](docs/Day02.md) `**`
-- [Day 03](docs/Day03.md) `**`
-- [Day 04](docs/Day04.md) `**`
-- [Day 05](docs/Day05.md) `*`
-- [Day 06](docs/Day06.md) `**`
-- [Day 07](docs/Day07.md) `*`
-- [Day 08](docs/Day08.md) `*`
-- [Day 09](docs/Day09.md) `*`
-- [Day 10](docs/Day10.md) `*`
+- [`Day 01`](docs/Day01.md) `**`
+- [`Day 02`](docs/Day02.md) `**`
+- [`Day 03`](docs/Day03.md) `**`
+- [`Day 04`](docs/Day04.md) `**`
+- [`Day 05`](docs/Day05.md) `*`
+- [`Day 06`](docs/Day06.md) `**`
+- [`Day 07`](docs/Day07.md) `*`
+- [`Day 08`](docs/Day08.md) `*`
+- [`Day 09`](docs/Day09.md) `*`
+- [`Day 10`](docs/Day10.md) `*`
 
 overall `15*`
 
