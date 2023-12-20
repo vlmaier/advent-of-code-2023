@@ -9,11 +9,23 @@ problem-solving.
 
 ## Progress
 
-### `1** 2** 3** 4** 5* 6** 7* 8* 9* -- (overall 14*)`
+- [Day 01](docs/Day01.md) `**`
+- [Day 02](docs/Day02.md) `**`
+- [Day 03](docs/Day03.md) `**`
+- [Day 04](docs/Day04.md) `**`
+- [Day 05](docs/Day05.md) `*`
+- [Day 06](docs/Day06.md) `**`
+- [Day 07](docs/Day07.md) `*`
+- [Day 08](docs/Day08.md) `*`
+- [Day 09](docs/Day09.md) `*`
+- [Day 10](docs/Day10.md) `*`
+
+overall `15*`
 
 ## Structure
 
-- Solution: Each day has its own solution file e.g., `Day01.kt`, `Day02.kt` it (usually) contains solution for part 1 and 2 of each challenge.
+- Description: Each day has its own challenge description file e.g. `Day01.md`, `Day02.md`
+- Solution: Each day has its own solution file e.g. `Day01.kt`, `Day02.kt` it (usually) contains solution for part 1 and 2 of each challenge.
 - Input: Each day has its own personalized input file e.g. `day01.txt`, `day02.txt`
 
 ## Advent of Code

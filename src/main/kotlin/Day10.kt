@@ -5,11 +5,12 @@ import Direction.*
  * This is merely an adopted version.
  */
 fun main() {
-    solveDay10Part1().let { println("Part 1: $it") }
+    val input = readInput("day10")
+    solveDay10Part1(input).let { println("Part 1: $it") }
 }
 
-fun solveDay10Part1(): Int {
-    val maze = Maze.from(readInput("day10"))
+fun solveDay10Part1(input: List<String>): Int {
+    val maze = Maze.from(input)
     return maze.getFarthestPoint()
 }
 
